@@ -11,7 +11,7 @@ import javax.swing.JLayeredPane;
 /**
  * @author Andrei
  */
-public class BackgoundPanel1 extends JLayeredPane {
+public class BackgoundPanel extends JLayeredPane {
 
 	private static String BOARD_PATH = "res" + File.separator + "background.jpg";
 
