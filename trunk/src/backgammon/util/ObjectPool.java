@@ -34,7 +34,7 @@ public final class ObjectPool {
 	 */
 	public synchronized Object borrowObject() {
 		int currentSize = instances.size();
-		if (currentSize == size) {
+		if (currentSize ==0 || currentSize == size) {
 			try {
 				return clazz.newInstance();
 			} catch (Exception e) {
