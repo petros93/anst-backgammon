@@ -19,9 +19,9 @@ public class MainFrame extends JFrame {
 
 	private static final long serialVersionUID = 4L;
 
-	private JButton startNewGameButton;
-	private JButton previousGameButton;
-	private JButton exitButton;
+	private BtnStartCommand startNewGameButton;
+	private BtnLoadCommand previousGameButton;
+	private BtnExitCommand exitButton;
 	public static JLayeredPane mainPanel;
 
 	/**
@@ -37,21 +37,21 @@ public class MainFrame extends JFrame {
 		});
 
 		mainPanel = new JLayeredPane();
-		GameActionListener actionlist = new GameActionListener(this);
+		GameActionListener actionlist = new GameActionListener();
 		mainPanel.setLayout(null);
 
-		startNewGameButton = new JButton("startGame");
+		startNewGameButton = new BtnStartCommand("startGame", this);
 		startNewGameButton.addActionListener(actionlist);
 		startNewGameButton.setSize(new Dimension(130, 40));
 		startNewGameButton.setLocation(380, 130);
 
-		previousGameButton = new JButton("previousGame");
+		previousGameButton = new BtnLoadCommand("previousGame");
 		previousGameButton.addActionListener(actionlist);
 		previousGameButton.setSize(new Dimension(130, 40));
 		previousGameButton.setLocation(380, 230);
 		previousGameButton.setVisible(true);
 
-		exitButton = new JButton("exitButton");
+		exitButton = new BtnExitCommand("exitButton");
 		exitButton.addActionListener(actionlist);
 		exitButton.setSize(new Dimension(130, 40));
 		exitButton.setLocation(380, 330);

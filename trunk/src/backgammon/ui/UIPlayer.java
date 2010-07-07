@@ -64,7 +64,6 @@ public class UIPlayer implements Player {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "UIPlayer";
 	}
 }

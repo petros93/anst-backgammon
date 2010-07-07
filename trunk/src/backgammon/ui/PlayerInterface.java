@@ -185,7 +185,7 @@ public class PlayerInterface implements ActionListener, PropertyChangeListener {
 	}
 
 	public static int[] postions = new int[5];
-	public static int[] moves = new int[4];
+	public static int[] moves = new int[5];
 
 	public void actionPerformed(ActionEvent ae) {
 		String action = ae.getActionCommand();
