@@ -9,7 +9,6 @@ import javax.swing.JComponent;
 public abstract class ComponentDecorator extends JComponent {
 
 	public ComponentDecorator(JComponent comp) {
-		super();
 		setLayout(null);
 		add("Center", comp);
 	}
