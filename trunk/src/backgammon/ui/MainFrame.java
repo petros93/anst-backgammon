@@ -24,7 +24,7 @@ public class MainFrame extends JFrame {
 	 * Default constructor
 	 */
 	public MainFrame() {
-		setSize(800, 500);
+		setSize(805, 535);
 		setLayout(new BorderLayout());
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {

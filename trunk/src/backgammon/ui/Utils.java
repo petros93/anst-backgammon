@@ -7,7 +7,7 @@ import java.awt.geom.Point2D;
  */
 public class Utils {
 
-	private static PointImpl[][] coord;
+	public static PointImpl[][] coord;
 
 	public static void creatCoordinates() {
 		coord = new PointImpl[25][5];
@@ -20,8 +20,8 @@ public class Utils {
 
 class PointImpl extends Point2D {
 
-	private int x;
-	private int y;
+	private double x;
+	private double y;
 
 	@Override
 	public double getX() {
@@ -35,8 +35,8 @@ class PointImpl extends Point2D {
 
 	@Override
 	public void setLocation(double x, double y) {
-		this.x = (int) x;
-		this.y = (int) y;
+		this.x = x;
+		this.y = y;
 	}
 
 }
