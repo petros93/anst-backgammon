@@ -40,21 +40,28 @@ public class UIPlayer implements Player {
 			sync.wait(3600000);
 		}
 
-//		CheckerMove allMoves[] = new CheckerMove[4];
-//		allMoves[0] = new CheckerMove(PlayerInterface.postions[1],
-//				PlayerInterface.moves[1]);
-//		allMoves[1] = new CheckerMove(PlayerInterface.postions[2],
-//				PlayerInterface.moves[2]);
-//		if (dice.isDouble()) {
-//			allMoves[3] = new CheckerMove(PlayerInterface.postions[3],
-//					PlayerInterface.moves[3]);
-//			allMoves[4] = new CheckerMove(PlayerInterface.postions[4],
-//					PlayerInterface.moves[4]);
-//		}
-//		PlayerMove playerMove = new PlayerMove(allMoves);
-//
-//		return playerMove;
-		return null;
+		CheckerMove allMoves[];
+		if (dice.isDouble()) {
+			allMoves = new CheckerMove[4];
+		} else {
+			allMoves = new CheckerMove[2];
+		}
+		
+		System.out.println(PlayerInterface.postions[1]);
+		System.out.println(PlayerInterface.moves[1]);
+		allMoves[0] = new CheckerMove(PlayerInterface.postions[1],
+				PlayerInterface.moves[1]);
+		allMoves[1] = new CheckerMove(PlayerInterface.postions[2],
+				PlayerInterface.moves[2]);
+		if (dice.isDouble()) {
+			allMoves[3] = new CheckerMove(PlayerInterface.postions[3],
+					PlayerInterface.moves[3]);
+			allMoves[4] = new CheckerMove(PlayerInterface.postions[4],
+					PlayerInterface.moves[4]);
+		}
+		PlayerMove playerMove = new PlayerMove(allMoves);
+
+		return playerMove;
 	}
 
 	@Override
