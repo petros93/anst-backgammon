@@ -7,6 +7,8 @@ import backgammon.game.CheckerMove;
 import backgammon.game.Constants;
 import backgammon.game.Dice;
 import backgammon.game.GameOverStatus;
+import backgammon.game.GameType;
+import backgammon.game.MoveValidator;
 import backgammon.game.PlayerColor;
 import backgammon.game.PlayerMove;
 import backgammon.game.Point;
@@ -36,7 +38,7 @@ public class BackgammonBoardImpl implements BackgammonBoard {
 	/**
 	 * Creates default board initiated with the default playing positions.
 	 */
-	public BackgammonBoardImpl() {
+	public BackgammonBoardImpl(GameType gameType) {
 		movesThatHit = new ArrayList<CheckerMove>(4);
 		board = new PointImpl[BOARD_SIZE];
 		for (int i = 0; i < BOARD_SIZE; i++) {
@@ -56,7 +58,8 @@ public class BackgammonBoardImpl implements BackgammonBoard {
 		board[0].updatePoint(2, PlayerColor.BLACK);
 		currentColor = PlayerColor.BLACK;
 
-		validator = new MoveValidator(this);
+		validator = MoveValidatorFactory.getInstance().getMoveValidator(
+				gameType, this);
 	}
 
 	/**
@@ -76,7 +79,8 @@ public class BackgammonBoardImpl implements BackgammonBoard {
 	 *            the number of the opponent born-offs.
 	 */
 	public BackgammonBoardImpl(int[] count, int[] possesion, int hits_mine,
-			int hits_opponent, int bornoff_mine, int bornoff_opponent) {
+			int hits_opponent, int bornoff_mine, int bornoff_opponent,
+			GameType gameType) {
 		movesThatHit = new ArrayList<CheckerMove>(4);
 		board = new PointImpl[BOARD_SIZE];
 		currentColor = PlayerColor.WHITE;
@@ -101,7 +105,8 @@ public class BackgammonBoardImpl implements BackgammonBoard {
 		board[BORN_BLACK].updatePoint(
 				currentColor == PlayerColor.WHITE ? bornoff_opponent
 						: bornoff_mine, currentColor);
-		validator = new MoveValidator(this);
+		validator = MoveValidatorFactory.getInstance().getMoveValidator(
+				gameType, this);
 	}
 
 	/**

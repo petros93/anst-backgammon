@@ -1,33 +1,23 @@
 package backgammon.impl.game;
 
+import backgammon.game.BackgammonBoard;
 import backgammon.game.CheckerMove;
 import backgammon.game.Constants;
 import backgammon.game.Dice;
+import backgammon.game.MoveValidator;
 import backgammon.game.PlayerColor;
 import backgammon.game.PlayerMove;
 import backgammon.game.Point;
 
 /**
- * Validates the game play. There will be a method - boolean
- * validateMove(Backgammon currB, Move move), which will validate the move of
- * the player according to the current backgammon.
+ * Validates the game play.
  */
-public final class MoveValidator {
+public final class StandartBackgammonMoveValidator extends MoveValidator {
 
-	private BackgammonBoardImpl board;
-
-	/**
-	 * Creates a move validator associated to the specified board.
-	 */
-	public MoveValidator(BackgammonBoardImpl board) {
-		this.board = board;
+	public StandartBackgammonMoveValidator(BackgammonBoard board) {
+		super(board);
 	}
 
-	/**
-	 * Validates if the move is valid according the board and the dice.
-	 * 
-	 * @return true if the move is valid.
-	 */
 	public boolean validateMove(PlayerMove move, Dice dice) {
 		// TODO
 		if (move.isDouble() != dice.isDouble()) {
@@ -49,11 +39,6 @@ public final class MoveValidator {
 		return true;
 	}
 
-	/**
-	 * Checks if the move is valid according to the board.
-	 * 
-	 * @return true if the move is valid according to the board.
-	 */
 	public boolean validateMove(CheckerMove move) {
 		if (move.isUnavailableMove()) {
 			if (!validateEmptyMoves(move)) {
@@ -114,7 +99,8 @@ public final class MoveValidator {
 	}
 
 	private boolean validateEmptyMoves(CheckerMove move) {
-		if (!move.isUnavailableMove()) return true;
+		if (!move.isUnavailableMove())
+			return true;
 		int die = move.getDie();
 		PlayerColor color = board.getCurrentPlayerColor();
 
