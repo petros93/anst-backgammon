@@ -1,6 +1,7 @@
 package backgammon.ui;
 
-import java.awt.geom.Point2D;
+import javax.swing.text.MaskFormatter;
+
 
 /**
  *
@@ -8,7 +9,21 @@ import java.awt.geom.Point2D;
 public class Utils {
 
 	public static PointImpl[][] coord;
+	public static String[] petStrings = { "1", "2", "3", "4", "5", "6", "7", "8", "9",
+			"10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
+			"21", "22", "23", "24" };
 
+	public static MaskFormatter createFormatter(String s) {
+    MaskFormatter formatter = null;
+    try {
+        formatter = new MaskFormatter(s);
+    } catch (java.text.ParseException exc) {
+        System.err.println("formatter is bad: " + exc.getMessage());
+        System.exit(-1);
+    }
+    return formatter;
+	}
+    
 	public static void creatCoordinates() {
 		coord = new PointImpl[25][6];
 		for (int i = 13; i <= 18; i++) {
