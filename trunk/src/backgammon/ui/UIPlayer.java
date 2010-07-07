@@ -2,6 +2,9 @@ package backgammon.ui;
 
 import javax.swing.JFrame;
 
+import org.eclipse.swt.widgets.Display;
+
+
 import backgammon.game.BackgammonBoard;
 import backgammon.game.CheckerMove;
 import backgammon.game.Dice;
@@ -31,38 +34,35 @@ public class UIPlayer implements Player {
 
 	@Override
 	public PlayerMove getMove(BackgammonBoard board, Dice dice) throws Exception {
+		System.out.println("getMove!");
 		PlayerInterface plInterface = new PlayerInterface(mainFrame, board, dice,
 				sync);
-		plInterface.visualizeLogic();
-
+//		Display.getDefault().syncExec(plInterface);
+		plInterface.run();
 		synchronized (sync) {
 			sync.wait(3600000);
 		}
 
-		CheckerMove allMoves[] = new CheckerMove[4];
-		allMoves[0] = new CheckerMove(PlayerInterface.postions[1],
-				PlayerInterface.moves[1]);
-		allMoves[1] = new CheckerMove(PlayerInterface.postions[2],
-				PlayerInterface.moves[2]);
-		if (dice.isDouble()) {
-			allMoves[3] = new CheckerMove(PlayerInterface.postions[3],
-					PlayerInterface.moves[3]);
-			allMoves[4] = new CheckerMove(PlayerInterface.postions[4],
-					PlayerInterface.moves[4]);
-		}
-		PlayerMove playerMove = new PlayerMove(allMoves);
-
-		return playerMove;
+//		CheckerMove allMoves[] = new CheckerMove[4];
+//		allMoves[0] = new CheckerMove(PlayerInterface.postions[1],
+//				PlayerInterface.moves[1]);
+//		allMoves[1] = new CheckerMove(PlayerInterface.postions[2],
+//				PlayerInterface.moves[2]);
+//		if (dice.isDouble()) {
+//			allMoves[3] = new CheckerMove(PlayerInterface.postions[3],
+//					PlayerInterface.moves[3]);
+//			allMoves[4] = new CheckerMove(PlayerInterface.postions[4],
+//					PlayerInterface.moves[4]);
+//		}
+//		PlayerMove playerMove = new PlayerMove(allMoves);
+//
+//		return playerMove;
+		return null;
 	}
 
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	public void start() {
-		GameFacade gameFacade = new GameFacade();
-		gameFacade.startGame(this, new SamplePlayer(), null, true);
 	}
 }

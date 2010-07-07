@@ -28,3 +28,9 @@ public class BackgoundPanel extends JLayeredPane {
 		g.drawImage(img, 0, 0, 800, 500, null);
 	}
 }
+org.tigris.subversion.javahl.ClientException: Obstructed update
+svn: Failed to add directory 'C:\Develop\eclipse\workspace\backgammon1\reports': object of the same name already exists
+
+org.tigris.subversion.javahl.ClientException: Obstructed update
+svn: Failed to add directory 'C:\Develop\eclipse\workspace\backgammon1\reports': object of the same name already exists
+

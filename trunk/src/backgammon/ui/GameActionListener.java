@@ -29,8 +29,8 @@ public class GameActionListener implements ActionListener {
 	}
 
 	private void startGame() {
-		UIPlayer pl = new UIPlayer(frame);
-		pl.start();
+		Thread th = new Thread(new StartThread(frame));
+		th.start();
 	}
 
 }
