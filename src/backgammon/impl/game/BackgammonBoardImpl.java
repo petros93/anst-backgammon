@@ -1,5 +1,11 @@
 package backgammon.impl.game;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import backgammon.game.BackgammonBoard;
@@ -10,6 +16,7 @@ import backgammon.game.GameOverStatus;
 import backgammon.game.PlayerColor;
 import backgammon.game.PlayerMove;
 import backgammon.game.Point;
+import backgammon.util.BackgammonConfig;
 
 /**
  * Represents implementation of the {@link BackgammonBoard} interface.
@@ -48,12 +55,18 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 	/**
 	 * Creates board from the given parameters.
 	 * 
-	 * @param count the number of checkers on a point.
-	 * @param possesion the color of checkers on a point.
-	 * @param hits_mine the number of my hits.
-	 * @param hits_opponent the number of the opponent hits.
-	 * @param bornoff_mine the number of my born-offs.
-	 * @param bornoff_opponent the number of the opponent born-offs.
+	 * @param count
+	 *            the number of checkers on a point.
+	 * @param possesion
+	 *            the color of checkers on a point.
+	 * @param hits_mine
+	 *            the number of my hits.
+	 * @param hits_opponent
+	 *            the number of the opponent hits.
+	 * @param bornoff_mine
+	 *            the number of my born-offs.
+	 * @param bornoff_opponent
+	 *            the number of the opponent born-offs.
 	 */
 	public BackgammonBoardImpl(int[] count, int[] possesion, int hits_mine,
 			int hits_opponent, int bornoff_mine, int bornoff_opponent) {
@@ -186,8 +199,10 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 	/**
 	 * Update the board with the given move.
 	 * 
-	 * @param move the move.
-	 * @param dice the dice corresponding to the move.
+	 * @param move
+	 *            the move.
+	 * @param dice
+	 *            the dice corresponding to the move.
 	 * @return true if the move is valid.
 	 */
 	boolean makeMove(PlayerMove move, Dice dice) {
@@ -269,4 +284,5 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 			}
 		}
 	}
+
 }

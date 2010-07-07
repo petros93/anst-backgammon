@@ -14,7 +14,7 @@ import backgammon.game.Player;
 import backgammon.game.PlayerColor;
 import backgammon.game.PlayerMove;
 import backgammon.logger.GameLogger;
-import backgammon.util.BackgammonatorConfig;
+import backgammon.util.BackgammonConfig;
 import backgammon.util.Debug;
 
 /**
@@ -30,7 +30,7 @@ class HTMLGameLogger implements GameLogger {
 	private String timestamp;
 	private int moveId;
 
-	private static String outputdir = BackgammonatorConfig.getProperty(
+	private static String outputdir = BackgammonConfig.getProperty(
 			"backgammonator.logger.outputDir", "reports").replace('/',
 			File.separatorChar);
 

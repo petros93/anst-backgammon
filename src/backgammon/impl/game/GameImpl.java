@@ -8,7 +8,7 @@ import backgammon.game.GameOverStatus;
 import backgammon.game.Player;
 import backgammon.game.PlayerMove;
 import backgammon.logger.GameLogger;
-import backgammon.util.BackgammonatorConfig;
+import backgammon.util.BackgammonConfig;
 import backgammon.util.Debug;
 
 /**
@@ -27,7 +27,7 @@ final class GameImpl implements Game {
 	 * and the player has not yet returned a move, the game is over and the
 	 * player loses.
 	 */
-	private static long MOVE_TIMEOUT = BackgammonatorConfig.getProperty(
+	private static long MOVE_TIMEOUT = BackgammonConfig.getProperty(
 			"backgammonator.game.moveTimeout", 2000);
 
 	private Player whitePlayer;
@@ -64,31 +64,39 @@ final class GameImpl implements Game {
 	/**
 	 * @see Game#start()
 	 */
-	@SuppressWarnings("null")
-	public GameOverStatus start() {
-		if (running) throw new IllegalStateException("Game is not over");
+	public GameOverStatus start(BackgammonBoard initBoard) {
+		if (running)
+			throw new IllegalStateException("Game is not over");
 		running = true;
 		Debug.getInstance().info(
 				"Starting game: " + whitePlayer.getName() + " vs "
 						+ blackPlayer.getName(), Debug.GAME_LOGIC);
 		try {
 			winner = null;
-			board.reset();
-			if (logMoves) logger.startGame(whitePlayer, blackPlayer);
+			if (initBoard != null) {
+				board = (BackgammonBoardImpl) initBoard;
+			} else {
+				board.reset();
+			}
+			if (logMoves)
+				logger.startGame(whitePlayer, blackPlayer);
 			GameOverStatus status;
 
 			startNewMoverThread(false);
 
 			while (true) {
 				status = makeMove(whitePlayer, blackPlayer);
-				if (status != null) break;
+				if (status != null)
+					break;
 				status = makeMove(blackPlayer, whitePlayer);
-				if (status != null) break;
+				if (status != null)
+					break;
 			}
 
-			if (logMoves) logger.endGame(status, status.isNormal() ? board
-					.getCurrentPlayerColor() : board.getCurrentPlayerColor()
-					.opposite());
+			if (logMoves)
+				logger.endGame(status,
+						status.isNormal() ? board.getCurrentPlayerColor()
+								: board.getCurrentPlayerColor().opposite());
 			return status;
 
 		} finally {
@@ -184,7 +192,8 @@ final class GameImpl implements Game {
 				logger.logMove(currentMove, dice, invalid, board);
 			}
 
-			if (invalid) return GameOverStatus.INVALID_MOVE;
+			if (invalid)
+				return GameOverStatus.INVALID_MOVE;
 
 			if (board.getBornOff(board.getCurrentPlayerColor()) == 15) {
 				GameOverStatus status = board.getWinStatus();
@@ -217,9 +226,12 @@ final class GameImpl implements Game {
 	 * interrupt the thread. It it is still alive, it stops it. And if stop
 	 * doesn't help, it calls destroy.
 	 * 
-	 * @param thread the thread to stop
-	 * @param callStop <code>true</code> to call stop and destroy.
-	 * @param joinTime the time to wait for the thread to die.
+	 * @param thread
+	 *            the thread to stop
+	 * @param callStop
+	 *            <code>true</code> to call stop and destroy.
+	 * @param joinTime
+	 *            the time to wait for the thread to die.
 	 * @return <code>true</code> if the thread is stopped
 	 */
 	@SuppressWarnings("deprecation")
@@ -231,19 +243,20 @@ final class GameImpl implements Game {
 				thread.interrupt();
 			} catch (Throwable t) {
 			}
-			if (callStop && thread.isAlive()) try {
-				thread.join(joinTime);
-				if (thread.isAlive()) {
-					thread.stop();
-				}
-				if (thread.isAlive()) {
+			if (callStop && thread.isAlive())
+				try {
 					thread.join(joinTime);
+					if (thread.isAlive()) {
+						thread.stop();
+					}
+					if (thread.isAlive()) {
+						thread.join(joinTime);
+					}
+					if (thread.isAlive()) {
+						thread.destroy();
+					}
+				} catch (Throwable t) {
 				}
-				if (thread.isAlive()) {
-					thread.destroy();
-				}
-			} catch (Throwable t) {
-			}
 			alive = thread.isAlive();
 		}
 		return !alive;
@@ -283,7 +296,8 @@ final class GameImpl implements Game {
 						}
 						waiting--;
 					}
-					if (stopped) return;
+					if (stopped)
+						return;
 				}
 				try {
 					switch (operation) {
@@ -307,7 +321,8 @@ final class GameImpl implements Game {
 		/**
 		 * Makes the move for the specified player on the board.
 		 * 
-		 * @param player the player to move
+		 * @param player
+		 *            the player to move
 		 */
 		public void makeMove(Player player) {
 			resume(player, 1, false, null);
@@ -317,7 +332,8 @@ final class GameImpl implements Game {
 		/**
 		 * Ends the game for the specified player.
 		 * 
-		 * @param player the player which game is to be ended
+		 * @param player
+		 *            the player which game is to be ended
 		 */
 		public void gameOver(Player player, boolean wins, GameOverStatus status) {
 			resume(player, 2, wins, status);
@@ -331,7 +347,8 @@ final class GameImpl implements Game {
 			synchronized (synch) {
 				if (!stopped) {
 					stopped = true;
-					if (waiting > 0) synch.notify();
+					if (waiting > 0)
+						synch.notify();
 				}
 			}
 		}
@@ -356,7 +373,8 @@ final class GameImpl implements Game {
 					waiting--;
 				}
 			}
-			if (!notified) return false;
+			if (!notified)
+				return false;
 			return true;
 		}
 
@@ -372,7 +390,8 @@ final class GameImpl implements Game {
 				notified = false;
 				suspended = false;
 				throwable = null;
-				if (waiting > 0) synch.notify();
+				if (waiting > 0)
+					synch.notify();
 			}
 		}
 
@@ -383,7 +402,8 @@ final class GameImpl implements Game {
 
 				notified = true;
 				suspended = true;
-				if (waiting > 0) synch.notify();
+				if (waiting > 0)
+					synch.notify();
 			}
 		}
 	}

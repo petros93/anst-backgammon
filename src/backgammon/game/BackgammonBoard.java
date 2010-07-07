@@ -1,9 +1,11 @@
 package backgammon.game;
 
+import java.io.Serializable;
+
 /**
  * Represents the structure of the backgammon board.
  */
-public interface BackgammonBoard {
+public interface BackgammonBoard extends Serializable {
 
 	/**
 	 * Returns the specified point on the board according to the given point

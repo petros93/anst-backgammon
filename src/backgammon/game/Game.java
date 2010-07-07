@@ -14,7 +14,7 @@ public interface Game {
 	 * @return the status of the game.
 	 * @see GameOverStatus
 	 */
-	GameOverStatus start();
+	GameOverStatus start(BackgammonBoard board);
 
 	/**
 	 * Returns the winner in this game.
