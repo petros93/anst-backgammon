@@ -19,7 +19,8 @@ import backgammon.game.Dice;
 import backgammon.game.PlayerColor;
 import backgammon.game.Point;
 
-public class PlayerInterface implements ActionListener, PropertyChangeListener {
+public class PlayerInterface extends Thread implements ActionListener,
+		PropertyChangeListener {
 
 	private JFrame mainFrame;
 	private BackgammonBoard board;
@@ -36,8 +37,12 @@ public class PlayerInterface implements ActionListener, PropertyChangeListener {
 		this.sync = sync;
 	}
 
-	public void visualizeLogic() {
+	/**
+	 * @see java.lang.Thread#run()
+	 */
+	public void run() {
 		mainFrame.remove(MainFrame.mainPanel);
+//		mainFrame.setVisible(false);
 		System.out.println("test1");
 		JLayeredPane backPanel = new JLayeredPane();
 		backPanel.setLayout(null);
@@ -92,91 +97,92 @@ public class PlayerInterface implements ActionListener, PropertyChangeListener {
 					backPanel.add(blackChecker, new Integer(301));
 				}
 			}
-
-			ImageIcon dice1Icon = new ImageIcon(getClass().getResource(
-					"/backgammon/ui/res/" + dice.getDie1() + ".png"));
-			JLabel dice1Label = new JLabel();
-			dice1Label.setIcon(dice1Icon);
-			dice1Label.setSize(100, 100);
-			dice1Label.setLocation(355, 120);
-			backPanel.add(dice1Label, new Integer(301));
-
-			ImageIcon dice2Icon = new ImageIcon(getClass().getResource(
-					"/backgammon/ui/res/" + dice.getDie2() + ".png"));
-			JLabel dice2Label = new JLabel();
-			dice2Label.setIcon(dice2Icon);
-			dice2Label.setSize(100, 100);
-			dice2Label.setLocation(410, 120);
-			backPanel.add(dice2Label, new Integer(301));
-
-			combo1 = new JComboBox(Utils.petStrings);
-			combo1.setLocation(355, 200);
-			combo1.setSize(30, 20);
-			combo1.setName("1");
-			combo1.addActionListener(this);
-			text1 = new JFormattedTextField(Utils.createFormatter("#"));
-			text1.setLocation(410, 200);
-			text1.setSize(30, 20);
-			text1.setName("1");
-			text1.addPropertyChangeListener("value", this);
-
-			JComboBox combo2 = new JComboBox(Utils.petStrings);
-			combo2.setLocation(355, 230);
-			combo2.setSize(30, 20);
-			combo2.setName("2");
-			combo2.addActionListener(this);
-
-			JFormattedTextField text2 = new JFormattedTextField(Utils
-					.createFormatter("#"));
-			text2.setLocation(410, 230);
-			text2.setSize(30, 20);
-			text2.setName("2");
-			text2.addPropertyChangeListener("value", this);
-			if (dice.isDouble()) {
-				JComboBox combo3 = new JComboBox(Utils.petStrings);
-				combo3.setLocation(355, 260);
-				combo3.setSize(30, 20);
-				combo3.setName("3");
-				combo3.addActionListener(this);
-
-				JFormattedTextField text3 = new JFormattedTextField(Utils
-						.createFormatter("#"));
-				text3.setLocation(410, 260);
-				text3.setSize(30, 20);
-				text3.setName("3");
-				text3.addPropertyChangeListener("value", this);
-
-				JComboBox combo4 = new JComboBox(Utils.petStrings);
-				combo4.setLocation(355, 290);
-				combo4.setSize(30, 20);
-				combo4.setName("4");
-				combo4.addActionListener(this);
-
-				JFormattedTextField text4 = new JFormattedTextField(Utils
-						.createFormatter("#"));
-				text4.setLocation(410, 290);
-				text4.setSize(30, 20);
-				text4.setName("4");
-				text4.addPropertyChangeListener("value", this);
-
-				backPanel.add(combo3, new Integer(301));
-				backPanel.add(text3, new Integer(301));
-				backPanel.add(combo4, new Integer(301));
-				backPanel.add(text4, new Integer(301));
-			}
-
-			JButton button = new JButton("give values");
-			button.addActionListener(this);
-			button.setLocation(350, 320);
-			button.setSize(100, 40);
-
-			backPanel.add(button, new Integer(301));
-			backPanel.add(combo1, new Integer(301));
-			backPanel.add(text1, new Integer(301));
-			backPanel.add(combo2, new Integer(301));
-			backPanel.add(text2, new Integer(301));
-			mainFrame.add(backPanel);
 		}
+		ImageIcon dice1Icon = new ImageIcon(getClass().getResource(
+				"/backgammon/ui/res/" + dice.getDie1() + ".png"));
+		JLabel dice1Label = new JLabel();
+		dice1Label.setIcon(dice1Icon);
+		dice1Label.setSize(100, 100);
+		dice1Label.setLocation(355, 120);
+		backPanel.add(dice1Label, new Integer(301));
+
+		ImageIcon dice2Icon = new ImageIcon(getClass().getResource(
+				"/backgammon/ui/res/" + dice.getDie2() + ".png"));
+		JLabel dice2Label = new JLabel();
+		dice2Label.setIcon(dice2Icon);
+		dice2Label.setSize(100, 100);
+		dice2Label.setLocation(410, 120);
+		backPanel.add(dice2Label, new Integer(301));
+
+		combo1 = new JComboBox(Utils.petStrings);
+		combo1.setLocation(355, 200);
+		combo1.setSize(30, 20);
+		combo1.setName("1");
+		combo1.addActionListener(this);
+		text1 = new JFormattedTextField(Utils.createFormatter("#"));
+		text1.setLocation(410, 200);
+		text1.setSize(30, 20);
+		text1.setName("1");
+		text1.addPropertyChangeListener("value", this);
+
+		JComboBox combo2 = new JComboBox(Utils.petStrings);
+		combo2.setLocation(355, 230);
+		combo2.setSize(30, 20);
+		combo2.setName("2");
+		combo2.addActionListener(this);
+
+		JFormattedTextField text2 = new JFormattedTextField(Utils
+				.createFormatter("#"));
+		text2.setLocation(410, 230);
+		text2.setSize(30, 20);
+		text2.setName("2");
+		text2.addPropertyChangeListener("value", this);
+		if (dice.isDouble()) {
+			JComboBox combo3 = new JComboBox(Utils.petStrings);
+			combo3.setLocation(355, 260);
+			combo3.setSize(30, 20);
+			combo3.setName("3");
+			combo3.addActionListener(this);
+
+			JFormattedTextField text3 = new JFormattedTextField(Utils
+					.createFormatter("#"));
+			text3.setLocation(410, 260);
+			text3.setSize(30, 20);
+			text3.setName("3");
+			text3.addPropertyChangeListener("value", this);
+
+			JComboBox combo4 = new JComboBox(Utils.petStrings);
+			combo4.setLocation(355, 290);
+			combo4.setSize(30, 20);
+			combo4.setName("4");
+			combo4.addActionListener(this);
+
+			JFormattedTextField text4 = new JFormattedTextField(Utils
+					.createFormatter("#"));
+			text4.setLocation(410, 290);
+			text4.setSize(30, 20);
+			text4.setName("4");
+			text4.addPropertyChangeListener("value", this);
+
+			backPanel.add(combo3, new Integer(301));
+			backPanel.add(text3, new Integer(301));
+			backPanel.add(combo4, new Integer(301));
+			backPanel.add(text4, new Integer(301));
+		}
+
+		JButton button = new JButton("give values");
+		button.addActionListener(this);
+		button.setLocation(350, 320);
+		button.setSize(100, 40);
+
+		backPanel.add(button, new Integer(301));
+		backPanel.add(combo1, new Integer(301));
+		backPanel.add(text1, new Integer(301));
+		backPanel.add(combo2, new Integer(301));
+		backPanel.add(text2, new Integer(301));
+		mainFrame.add(backPanel);
+		mainFrame.setVisible(true);
+		System.out.println("tararar1");
 	}
 
 	public static int[] postions = new int[5];
