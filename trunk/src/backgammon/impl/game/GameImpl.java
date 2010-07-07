@@ -5,6 +5,7 @@ import backgammon.game.BackgammonBoard;
 import backgammon.game.Dice;
 import backgammon.game.Game;
 import backgammon.game.GameOverStatus;
+import backgammon.game.GameType;
 import backgammon.game.Player;
 import backgammon.game.PlayerMove;
 import backgammon.logger.GameLogger;
@@ -50,12 +51,13 @@ final class GameImpl implements Game {
 	/**
 	 * Constructs a game between two AI players.
 	 */
-	GameImpl(Player whitePlayer, Player blackPlayer, boolean logMoves) {
+	GameImpl(Player whitePlayer, Player blackPlayer, boolean logMoves,
+			GameType gameType) {
 		this.whitePlayer = whitePlayer;
 		this.blackPlayer = blackPlayer;
-		dice = DiceFactory.getInstance().getRandomDice();
+		dice = DiceImplFactory.getInstance().getRandomDice();
 		this.logMoves = logMoves;
-		board = new BackgammonBoardImpl();
+		board = new BackgammonBoardImpl(gameType);
 		if (logMoves) {
 			logger = GameLoggerFactory.getLogger();
 		}
@@ -76,7 +78,7 @@ final class GameImpl implements Game {
 			if (initBoard != null) {
 				board = initBoard;
 			} else {
-				board = InitBackgammonBoardPrototype.getInstance()
+				board = InitStandardBackgammonBoardPrototype.getInstance()
 						.getInitBoard();
 			}
 			if (logMoves)
@@ -140,7 +142,7 @@ final class GameImpl implements Game {
 	 */
 	private GameOverStatus makeMove(Player currentPlayer, Player other) {
 		((BackgammonBoardImpl) board).switchPlayer();
-		dice = DiceFactory.getInstance().getRandomDice();
+		dice = DiceImplFactory.getInstance().getRandomDice();
 
 		try {
 			mover.makeMove(currentPlayer);
