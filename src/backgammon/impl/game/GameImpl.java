@@ -45,7 +45,7 @@ final class GameImpl implements Game {
 	private PlayerMove currentMove = null;
 	private Throwable throwable = null;
 	private BackgammonBoardImpl board;
-	private DiceImpl dice;
+	private Dice dice;
 
 	/**
 	 * Constructs a game between two AI players.
@@ -53,7 +53,7 @@ final class GameImpl implements Game {
 	GameImpl(Player whitePlayer, Player blackPlayer, boolean logMoves) {
 		this.whitePlayer = whitePlayer;
 		this.blackPlayer = blackPlayer;
-		dice = new DiceImpl();
+		dice = DiceFactory.getInstance().getRandomDice();
 		this.logMoves = logMoves;
 		board = new BackgammonBoardImpl();
 		if (logMoves) {
@@ -139,7 +139,7 @@ final class GameImpl implements Game {
 	 */
 	private GameOverStatus makeMove(Player currentPlayer, Player other) {
 		board.switchPlayer();
-		dice.generateNext();
+		dice = DiceFactory.getInstance().getRandomDice();
 
 		try {
 			mover.makeMove(currentPlayer);
