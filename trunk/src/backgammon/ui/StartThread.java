@@ -16,7 +16,7 @@ public class StartThread implements Runnable {
 	@Override
 	public void run() {
 		GameFacade gameFacade = new GameFacade();
-		gameFacade.startGame(new UIPlayer(mainPanel), new SamplePlayer(), null,
-				true, GameType.STANDARD);
+		gameFacade.startGame(new UIPlayer(mainPanel), PlayerFactory
+				.getPlayer(PlayerFactory.SIMPLE_PLAYER), null, true, GameType.STANDARD);
 	}
 }

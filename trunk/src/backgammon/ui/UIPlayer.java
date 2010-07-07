@@ -20,7 +20,6 @@ public class UIPlayer implements Player {
 		this.mainFrame = panel;
 		Utils.creatCoordinates();
 		objPool = new ObjectPool(5, CheckerMove.class);
-		System.out.println(objPool);
 	}
 
 	@Override
@@ -59,8 +58,6 @@ public class UIPlayer implements Player {
 		allMoves = new CheckerMove[i];
 		for (int j = 0; j < i; j++) {
 			allMoves[j] = ((CheckerMove) objPool.borrowObject());
-			System.out.println(PlayerInterface.postions[j+1]);
-			System.out.println(PlayerInterface.moves[j+1]);
 			allMoves[j].setStartPoint(PlayerInterface.postions[j+1]);
 			allMoves[j].setDie(PlayerInterface.moves[j+1]);
 		}
