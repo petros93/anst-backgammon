@@ -31,7 +31,7 @@ class HTMLGameLogger implements GameLogger {
 	private int moveId;
 
 	private static String outputdir = BackgammonConfig.getProperty(
-			"backgammonator.logger.outputDir", "reports").replace('/',
+			"backgammon.logger.outputDir", "reports").replace('/',
 			File.separatorChar);
 
 	/**

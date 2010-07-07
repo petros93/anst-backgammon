@@ -28,7 +28,7 @@ final class GameImpl implements Game {
 	 * player loses.
 	 */
 	private static long MOVE_TIMEOUT = BackgammonConfig.getProperty(
-			"backgammonator.game.moveTimeout", 2000);
+			"backgammon.game.moveTimeout", 2000);
 
 	private Player whitePlayer;
 	private Player blackPlayer;
