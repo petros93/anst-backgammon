@@ -33,7 +33,7 @@ public class MainFrame extends JFrame {
 		});
 
 		mainPanel = new BackgoundPanel1();
-		ActionListImpl actionlist = new ActionListImpl(this);
+		GameActionListener actionlist = new GameActionListener(this);
 		mainPanel.setLayout(null);
 
 		startNewGameButton = new JButton("startGame");

@@ -1,11 +1,16 @@
 package backgammon.ui;
 
 import java.awt.Image;
+import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
+import javax.swing.JTextField;
 
 import backgammon.game.BackgammonBoard;
 import backgammon.game.Dice;
@@ -108,17 +113,74 @@ public class UIPlayer implements Player {
 			JLabel dice1Label = new JLabel();
 			dice1Label.setIcon(dice1Icon);
 			dice1Label.setSize(100, 100);
-			dice1Label.setLocation(355, 180);
+			dice1Label.setLocation(355, 120);
 			backPanel.add(dice1Label, new Integer(301));
 
 			ImageIcon dice2Icon = new ImageIcon(getClass().getResource(
-					"/backgammon/ui/res/" + dice.getDie1() + ".png"));
+					"/backgammon/ui/res/" + dice.getDie2() + ".png"));
 			JLabel dice2Label = new JLabel();
 			dice2Label.setIcon(dice2Icon);
 			dice2Label.setSize(100, 100);
-			dice2Label.setLocation(410, 180);
+			dice2Label.setLocation(410, 120);
 			backPanel.add(dice2Label, new Integer(301));
 
+			PlayerActionListener listener = new PlayerActionListener(mainFrame);
+			JComboBox combo1 = new JComboBox(Utils.petStrings);
+			combo1.setLocation(355, 200);
+			combo1.setSize(30, 20);
+			combo1.addActionListener(listener);
+			JFormattedTextField text1 = new JFormattedTextField(Utils
+					.createFormatter("#"));
+			text1.setLocation(410, 200);
+			text1.setSize(30, 20);
+			text1.addActionListener(listener);
+
+			JComboBox combo2 = new JComboBox(Utils.petStrings);
+			combo2.setLocation(355, 230);
+			combo2.setSize(30, 20);
+			combo2.addActionListener(listener);
+
+			JFormattedTextField text2 = new JFormattedTextField(Utils
+					.createFormatter("#"));
+			text2.setLocation(410, 230);
+			text2.setSize(30, 20);
+			text2.addActionListener(listener);
+			if (dice.isDouble()) {
+				JComboBox combo3 = new JComboBox(Utils.petStrings);
+				combo3.setLocation(355, 260);
+				combo3.setSize(30, 20);
+				combo3.addActionListener(listener);
+
+				JFormattedTextField text3 = new JFormattedTextField(Utils
+						.createFormatter("#"));
+				text3.setLocation(410, 260);
+				text3.setSize(30, 20);
+				text3.addActionListener(listener);
+
+				JComboBox combo4 = new JComboBox(Utils.petStrings);
+				combo4.setLocation(355, 290);
+				combo4.setSize(30, 20);
+				combo4.addActionListener(listener);
+
+				JFormattedTextField text4 = new JFormattedTextField(Utils
+						.createFormatter("#"));
+				text4.setLocation(410, 290);
+				text4.setSize(30, 20);
+				text4.addActionListener(listener);
+
+				backPanel.add(combo3, new Integer(301));
+				backPanel.add(text3, new Integer(301));
+				backPanel.add(combo4, new Integer(301));
+				backPanel.add(text4, new Integer(301));
+			}
+
+			JButton button = new JButton("give values");
+			button.addActionListener(listener);
+
+			backPanel.add(combo1, new Integer(301));
+			backPanel.add(text1, new Integer(301));
+			backPanel.add(combo2, new Integer(301));
+			backPanel.add(text2, new Integer(301));
 			mainFrame.add(backPanel);
 		}
 	}

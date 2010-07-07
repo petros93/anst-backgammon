@@ -5,27 +5,18 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
-public class ActionListImpl implements ActionListener {
+public class PlayerActionListener implements ActionListener {
 
 	private JFrame frame;
 
-	public ActionListImpl(JFrame frame) {
+	public PlayerActionListener(JFrame frame) {
 		this.frame = frame;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 		String action = ae.getActionCommand();
-
-		if (action.equals("exitButton")) {
-			System.exit(0);
-		} else if (action.equals("startGame")) {
-			startGame();
-		} else if (action.equals("previousGame")) {
-
-		} else {
-			System.out.println(action);
-		}
+		System.out.println("action: " + action);
 	}
 
 	private void startGame() {
