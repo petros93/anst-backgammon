@@ -103,50 +103,25 @@ public class UIPlayer implements Player {
 				}
 			}
 
+			ImageIcon dice1Icon = new ImageIcon(getClass().getResource(
+					"/backgammon/ui/res/" + dice.getDie1() + ".png"));
+			JLabel dice1Label = new JLabel();
+			dice1Label.setIcon(dice1Icon);
+			dice1Label.setSize(100, 100);
+			dice1Label.setLocation(355, 180);
+			backPanel.add(dice1Label, new Integer(301));
+
+			ImageIcon dice2Icon = new ImageIcon(getClass().getResource(
+					"/backgammon/ui/res/" + dice.getDie1() + ".png"));
+			JLabel dice2Label = new JLabel();
+			dice2Label.setIcon(dice2Icon);
+			dice2Label.setSize(100, 100);
+			dice2Label.setLocation(410, 180);
+			backPanel.add(dice2Label, new Integer(301));
+
 			mainFrame.add(backPanel);
 		}
 	}
-
-	//
-	// public void visualizeSMT() {
-	// mainFrame.remove(MainFrame.mainPanel);
-	// System.out.println("test1");
-	// JLayeredPane backPanel = new JLayeredPane();
-	// backPanel.setLayout(null);
-	// backPanel.setSize(800, 500);
-	// backPanel.setVisible(true);
-	// backPanel.repaint();
-	//
-	// JLabel board = new JLabel();
-	// ImageIcon icon = new ImageIcon(getClass().getResource(
-	// "/backgammon/ui/board.png"));
-	// Image img = icon.getImage();
-	// Image newimg = img.getScaledInstance(800, 500,
-	// java.awt.Image.SCALE_SMOOTH);
-	// ImageIcon newIcon = new ImageIcon(newimg);
-	//
-	// board.setIcon(newIcon);
-	// board.setSize(800, 500);
-	// backPanel.add(board, new Integer(100));
-	//
-	// JLabel checker = new JLabel();
-	// ImageIcon checkIcon = new ImageIcon(getClass().getResource(
-	// "/backgammon/ui/white.png"));
-	// img = checkIcon.getImage();
-	// newimg = img.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
-	// newIcon = new ImageIcon(newimg);
-	// checker.setIcon(newIcon);
-	// checker.setSize(50, 50);
-	// checker.setLocation(20, 10);
-	// backPanel.add(checker, new Integer(300));
-	//
-	// for (int i = 0; i < array.length; i++) {
-	//
-	// }
-	// mainFrame.add(backPanel);
-	// mainFrame.setVisible(true);
-	// mainFrame.repaint();
-	// }
 
 	public void start() {
 		GameFacade gameFacade = new GameFacade();
