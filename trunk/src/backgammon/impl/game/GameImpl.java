@@ -1,13 +1,14 @@
 package backgammon.impl.game;
 
-import backgammon.impl.logger.GameLoggerFactory;
 import backgammon.game.BackgammonBoard;
 import backgammon.game.Dice;
 import backgammon.game.Game;
 import backgammon.game.GameOverStatus;
 import backgammon.game.GameType;
+import backgammon.game.MoveValidator;
 import backgammon.game.Player;
 import backgammon.game.PlayerMove;
+import backgammon.impl.logger.GameLoggerFactory;
 import backgammon.logger.GameLogger;
 import backgammon.logger.GameLoggerType;
 import backgammon.util.BackgammonConfig;
