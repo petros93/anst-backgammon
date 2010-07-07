@@ -10,33 +10,48 @@ public class Utils {
 	public static PointImpl[][] coord;
 
 	public static void creatCoordinates() {
-		coord = new PointImpl[25][5];
-		for (int i = 0; i < 25; i++) {
-			coord[i] = new PointImpl[5];
+		coord = new PointImpl[25][6];
+		for (int i = 13; i <= 18; i++) {
+			for (int j = 1; j <= 5; j++) {
+				coord[i][j] = new PointImpl(25 + ((i - 13) * 56), 15 + ((j - 1) * 40));
+			}
 		}
-		PointImpl p = new PointImpl();
+
+		for (int i = 19; i <= 24; i++) {
+			for (int j = 1; j <= 5; j++) {
+				coord[i][j] = new PointImpl(465 + ((i - 19) * 56), 15 + ((j - 1) * 40));
+			}
+		}
+
+		for (int i = 12; i >= 7; i--) {
+			for (int j = 1; j <= 5; j++) {
+				coord[i][j] = new PointImpl(25 - ((i - 12) * 56), 440 - ((j - 1) * 40));
+			}
+		}
+		
+		for (int i = 6; i >= 1; i--) {
+			for (int j = 1; j <= 5; j++) {
+				coord[i][j] = new PointImpl(465 - ((i - 6) * 56), 440 - ((j - 1) * 40));
+			}
+		}
 	}
 }
 
-class PointImpl extends Point2D {
+class PointImpl {
 
-	private double x;
-	private double y;
+	int x, y;
 
-	@Override
-	public double getX() {
+	public PointImpl(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	public int getX() {
 		return x;
 	}
 
-	@Override
-	public double getY() {
+	public int getY() {
 		return y;
-	}
-
-	@Override
-	public void setLocation(double x, double y) {
-		this.x = x;
-		this.y = y;
 	}
 
 }
