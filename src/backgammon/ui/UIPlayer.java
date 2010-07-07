@@ -8,14 +8,19 @@ import backgammon.game.Dice;
 import backgammon.game.GameOverStatus;
 import backgammon.game.Player;
 import backgammon.game.PlayerMove;
+import backgammon.util.ObjectPool;
 
 public class UIPlayer implements Player {
 
 	private JFrame mainFrame;
+	private ObjectPool objPool;
+	private CheckerMove allMoves[];
 
 	public UIPlayer(JFrame panel) {
 		this.mainFrame = panel;
 		Utils.creatCoordinates();
+		objPool = new ObjectPool(5, CheckerMove.class);
+		System.out.println(objPool);
 	}
 
 	@Override
@@ -28,7 +33,6 @@ public class UIPlayer implements Player {
 
 	@Override
 	public PlayerMove getMove(BackgammonBoard board, Dice dice) throws Exception {
-		System.out.println("getMove!");
 		PlayerInterface plInterface = new PlayerInterface(mainFrame, board, dice,
 				sync);
 		plInterface.run();
@@ -36,29 +40,30 @@ public class UIPlayer implements Player {
 			sync.wait(3600000);
 		}
 
-		CheckerMove allMoves[];
-		if (dice.isDouble()) {
-			allMoves = new CheckerMove[4];
-		} else {
-			allMoves = new CheckerMove[2];
-		}
-		
-		allMoves[0] = new CheckerMove(PlayerInterface.postions[1],
-				PlayerInterface.moves[1]);
-		allMoves[1] = new CheckerMove(PlayerInterface.postions[2],
-				PlayerInterface.moves[2]);
-		if (dice.isDouble()) {
-			allMoves[3] = new CheckerMove(PlayerInterface.postions[3],
-					PlayerInterface.moves[3]);
-			allMoves[4] = new CheckerMove(PlayerInterface.postions[4],
-					PlayerInterface.moves[4]);
-		}
-		System.out.println(PlayerInterface.postions[1]);
-		System.out.println(PlayerInterface.moves[1]);
-		System.out.println(PlayerInterface.postions[2]);
-		System.out.println(PlayerInterface.moves[2]);
-		PlayerMove playerMove = new PlayerMove(allMoves);
+		returnBorrowedObjects();
+		return makePlayer(dice);
+	}
 
+	private void returnBorrowedObjects() {
+		if (allMoves != null) {
+			for (int p = 0; p < 4; p++) {
+				if (allMoves[p] != null) {
+					objPool.returnObject(allMoves[p]);
+				}
+			}
+		}
+	}
+
+	private PlayerMove makePlayer(Dice dice) {
+		int i = dice.isDouble() ? 4 : 2;
+		allMoves = new CheckerMove[i];
+		for (int j = 0; j < i; j++) {
+			allMoves[j] = ((CheckerMove) objPool.borrowObject());
+			allMoves[j].setStartPoint(PlayerInterface.postions[j]);
+			allMoves[j].setDie(PlayerInterface.moves[j]);
+		}
+
+		PlayerMove playerMove = new PlayerMove(allMoves);
 		return playerMove;
 	}
 
