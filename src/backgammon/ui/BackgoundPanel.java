@@ -9,7 +9,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JLayeredPane;
 
 /**
- * @author Andrei
+ * @author Andrei Penchev
  */
 public class BackgoundPanel extends JLayeredPane {
 
