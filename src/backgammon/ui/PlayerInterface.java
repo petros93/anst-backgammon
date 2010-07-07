@@ -19,8 +19,7 @@ import backgammon.game.Dice;
 import backgammon.game.PlayerColor;
 import backgammon.game.Point;
 
-public class PlayerInterface extends Thread implements ActionListener,
-		PropertyChangeListener {
+public class PlayerInterface implements ActionListener, PropertyChangeListener {
 
 	private JFrame mainFrame;
 	private BackgammonBoard board;
@@ -28,6 +27,7 @@ public class PlayerInterface extends Thread implements ActionListener,
 	private JComboBox combo1;
 	private JFormattedTextField text1;
 	private Object sync;
+	private static JLayeredPane backPanel;
 
 	public PlayerInterface(JFrame mainFrame, BackgammonBoard board, Dice dice,
 			Object sync) {
@@ -37,14 +37,13 @@ public class PlayerInterface extends Thread implements ActionListener,
 		this.sync = sync;
 	}
 
-	/**
-	 * @see java.lang.Thread#run()
-	 */
 	public void run() {
 		mainFrame.remove(MainFrame.mainPanel);
-//		mainFrame.setVisible(false);
+		if (backPanel != null) {
+			mainFrame.remove(backPanel);
+		}
 		System.out.println("test1");
-		JLayeredPane backPanel = new JLayeredPane();
+		backPanel = new JLayeredPane();
 		backPanel.setLayout(null);
 		backPanel.setSize(800, 500);
 		backPanel.setVisible(true);
@@ -116,7 +115,7 @@ public class PlayerInterface extends Thread implements ActionListener,
 
 		combo1 = new JComboBox(Utils.petStrings);
 		combo1.setLocation(355, 200);
-		combo1.setSize(30, 20);
+		combo1.setSize(40, 20);
 		combo1.setName("1");
 		combo1.addActionListener(this);
 		text1 = new JFormattedTextField(Utils.createFormatter("#"));
@@ -127,7 +126,7 @@ public class PlayerInterface extends Thread implements ActionListener,
 
 		JComboBox combo2 = new JComboBox(Utils.petStrings);
 		combo2.setLocation(355, 230);
-		combo2.setSize(30, 20);
+		combo2.setSize(40, 20);
 		combo2.setName("2");
 		combo2.addActionListener(this);
 
@@ -140,7 +139,7 @@ public class PlayerInterface extends Thread implements ActionListener,
 		if (dice.isDouble()) {
 			JComboBox combo3 = new JComboBox(Utils.petStrings);
 			combo3.setLocation(355, 260);
-			combo3.setSize(30, 20);
+			combo3.setSize(40, 20);
 			combo3.setName("3");
 			combo3.addActionListener(this);
 
@@ -153,7 +152,7 @@ public class PlayerInterface extends Thread implements ActionListener,
 
 			JComboBox combo4 = new JComboBox(Utils.petStrings);
 			combo4.setLocation(355, 290);
-			combo4.setSize(30, 20);
+			combo4.setSize(40, 20);
 			combo4.setName("4");
 			combo4.addActionListener(this);
 
@@ -206,7 +205,7 @@ public class PlayerInterface extends Thread implements ActionListener,
 		if (event.getSource() instanceof JFormattedTextField) {
 			JFormattedTextField textFiled = (JFormattedTextField) event.getSource();
 			if (textFiled.getValue() != null) {
-				postions[Integer.valueOf(textFiled.getName()).intValue()] = Integer
+				moves[Integer.valueOf(textFiled.getName()).intValue()] = Integer
 						.valueOf((String) textFiled.getValue()).intValue();
 			}
 		}
