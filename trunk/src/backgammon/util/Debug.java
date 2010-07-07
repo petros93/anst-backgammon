@@ -58,18 +58,18 @@ public final class Debug {
 	public static final int DEMO = 10;
 
 	private static boolean debugOn = BackgammonConfig.getProperty(
-			"backgammonator.debug.enabled", true);
+			"backgammon.debug.enabled", true);
 	private static boolean onConsole = BackgammonConfig.getProperty(
-			"backgammonator.debug.onConsole", true);
+			"backgammon.debug.onConsole", true);
 
 	private static boolean inFile = BackgammonConfig.getProperty(
-			"backgammonator.debug.inFile", false);
+			"backgammon.debug.inFile", false);
 
 	private static PrintStream consoleLog = System.out;
 
 	private static PrintStream fileLog = null;
 	private static File logFile = new File(BackgammonConfig.getProperty(
-			"backgammonator.debug.file", "log.txt").replace('/',
+			"backgammon.debug.file", "log.txt").replace('/',
 			File.separatorChar));
 
 	private static Debug instance = null;
@@ -198,7 +198,7 @@ public final class Debug {
 			res = "Web Interface";
 			break;
 		case DEMO:
-			res = "Backgammonator Demo";
+			res = "backgammon Demo";
 			break;
 		default:
 			res = "Not Specified";
