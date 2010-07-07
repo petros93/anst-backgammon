@@ -10,10 +10,10 @@ import java.util.Properties;
 /**
  * Holds configuration properties for the system.
  */
-public final class BackgammonatorConfig {
+public final class BackgammonConfig {
 
 	private static Properties properties = new Properties();
-	private static File propertiesFile = new File("backgammonator.properties");
+	private static File propertiesFile = new File("backgammon.properties");
 
 	static {
 		// load the properties
@@ -42,7 +42,7 @@ public final class BackgammonatorConfig {
 			// directory but maybe it can be placed in some library jar on the
 			// class path -> in case of using the backgammonatorLibrary.jar as
 			// demo or in the class path of a Java project
-			URL properiesURL = BackgammonatorConfig.class
+			URL properiesURL = BackgammonConfig.class
 					.getResource("/backgammonator.properties");
 			System.out.println("[INFO] [Utils] "
 					+ "Properties loaded successfully from entry "
@@ -85,7 +85,7 @@ public final class BackgammonatorConfig {
 	}
 
 	/**
-	 * @see BackgammonatorConfig#getProperty(String, String)
+	 * @see BackgammonConfig#getProperty(String, String)
 	 * @return the value of the property parsed to <code>int</code>
 	 */
 	public static int getProperty(String key, int alternative) {
@@ -94,7 +94,7 @@ public final class BackgammonatorConfig {
 	}
 
 	/**
-	 * @see BackgammonatorConfig#getProperty(String, String)
+	 * @see BackgammonConfig#getProperty(String, String)
 	 * @return the value of the property parsed to <code>long</code>
 	 */
 	public static long getProperty(String key, long alternative) {
@@ -103,7 +103,7 @@ public final class BackgammonatorConfig {
 	}
 
 	/**
-	 * @see BackgammonatorConfig#getProperty(String, String)
+	 * @see BackgammonConfig#getProperty(String, String)
 	 * @return the value of the property parsed to <code>boolean</code>
 	 */
 	public static boolean getProperty(String key, boolean alternative) {
