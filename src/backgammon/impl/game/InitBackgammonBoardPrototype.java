@@ -1,10 +1,6 @@
 package backgammon.impl.game;
 
-import java.util.ArrayList;
-
 import backgammon.game.BackgammonBoard;
-import backgammon.game.CheckerMove;
-import backgammon.game.PlayerColor;
 
 /**
  * Gives Initial BackgammonBoard Prototype. Singleton
