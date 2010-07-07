@@ -27,7 +27,7 @@ public final class BoardLoader {
 		FileOutputStream fos = null;
 		ObjectOutputStream out = null;
 		try {
-			fos = new FileOutputStream(BackgammonConfig.getProperty("savesDir")
+			fos = new FileOutputStream(BackgammonConfig.getProperty("backgammon.game.savesDir")
 					+ File.separator + filename);
 			out = new ObjectOutputStream(fos);
 			out.writeObject(board);
