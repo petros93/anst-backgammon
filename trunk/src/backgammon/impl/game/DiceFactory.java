@@ -23,7 +23,7 @@ public final class DiceFactory {
 	}
 
 	private DiceFactory() {
-		dice = new DiceImpl[6][6];
+		dice = new DiceImpl[7][7];
 		for (int i = 1; i <= 6; i++) {
 			for (int j = 1; j <= 6; j++) {
 				dice[i][j] = new DiceImpl(i, j);
