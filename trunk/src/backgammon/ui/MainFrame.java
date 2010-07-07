@@ -1,13 +1,12 @@
 package backgammon.ui;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 /**
  * @author Andrei Penchev
@@ -19,6 +18,7 @@ public class MainFrame extends JFrame {
 	private JButton startNewGameButton;
 	private JButton previousGameButton;
 	private JButton exitButton;
+	public static BackgoundPanel1 mainPanel;
 
 	/**
 	 * Default constructor
@@ -31,29 +31,31 @@ public class MainFrame extends JFrame {
 				System.exit(0);
 			}
 		});
-		ActionListImpl actionlist = new ActionListImpl(this);
 
-		BackgoundPanel mainPanel = new BackgoundPanel();
-		mainPanel.setLayout(new FlowLayout());
+		mainPanel = new BackgoundPanel1();
+		ActionListImpl actionlist = new ActionListImpl(this);
+		mainPanel.setLayout(null);
 
 		startNewGameButton = new JButton("startGame");
 		startNewGameButton.addActionListener(actionlist);
-		startNewGameButton.setVisible(true);
-		startNewGameButton.setLocation(380, 200);
+		startNewGameButton.setSize(new Dimension(130, 40));
+		startNewGameButton.setLocation(380, 130);
 
-		previousGameButton = new JButton("previosGame");
+		previousGameButton = new JButton("previousGame");
 		previousGameButton.addActionListener(actionlist);
+		previousGameButton.setSize(new Dimension(130, 40));
+		previousGameButton.setLocation(380, 230);
 		previousGameButton.setVisible(true);
-		previousGameButton.setLocation(380, 250);
 
 		exitButton = new JButton("exitButton");
 		exitButton.addActionListener(actionlist);
-		exitButton.setSize(exitButton.getPreferredSize());
-		exitButton.setLocation(380, 300);
+		exitButton.setSize(new Dimension(130, 40));
+		exitButton.setLocation(380, 330);
 
-		mainPanel.add(startNewGameButton);
-		mainPanel.add(previousGameButton);
-		mainPanel.add(exitButton);
+		mainPanel.add(startNewGameButton, new Integer(200));
+		mainPanel.add(previousGameButton, new Integer(200));
+		mainPanel.add(exitButton, new Integer(200));
+		mainPanel.setVisible(true);
 		add(mainPanel);
 		mainPanel.setVisible(true);
 	}

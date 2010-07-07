@@ -1,14 +1,15 @@
 package backgammon.ui;
 
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFrame;
+
 public class ActionListImpl implements ActionListener {
 
-	private Frame frame;
+	private JFrame frame;
 
-	public ActionListImpl(Frame frame) {
+	public ActionListImpl(JFrame frame) {
 		this.frame = frame;
 	}
 
@@ -17,11 +18,8 @@ public class ActionListImpl implements ActionListener {
 		String action = ae.getActionCommand();
 
 		if (action.equals("exitButton")) {
-			frame.dispose();
-			System.out.println("Exiting.");
 			System.exit(0);
 		} else if (action.equals("startGame")) {
-			System.out.println("startGame.");
 			startGame();
 		} else if (action.equals("previousGame")) {
 
@@ -31,7 +29,8 @@ public class ActionListImpl implements ActionListener {
 	}
 
 	private void startGame() {
-		
+		UIPlayer pl = new UIPlayer(frame);
+		pl.start();
 	}
 
 }
