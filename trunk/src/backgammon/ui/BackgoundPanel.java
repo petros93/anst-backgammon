@@ -19,18 +19,12 @@ public class BackgoundPanel extends JLayeredPane {
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 		Image img = null;
-			try {
-				img = ImageIO.read(new File(BOARD_PATH));
-			} catch (IOException e1) {
-				e1.printStackTrace();
-				// TODO debug
-			}
+		try {
+			img = ImageIO.read(new File(BOARD_PATH));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+			// TODO debug
+		}
 		g.drawImage(img, 0, 0, 800, 500, null);
 	}
 }
-org.tigris.subversion.javahl.ClientException: Obstructed update
-svn: Failed to add directory 'C:\Develop\eclipse\workspace\backgammon1\reports': object of the same name already exists
-
-org.tigris.subversion.javahl.ClientException: Obstructed update
-svn: Failed to add directory 'C:\Develop\eclipse\workspace\backgammon1\reports': object of the same name already exists
-
