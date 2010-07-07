@@ -1,7 +1,5 @@
 package backgammon.impl.game;
 
-import java.util.Random;
-
 import backgammon.game.Dice;
 
 /**
