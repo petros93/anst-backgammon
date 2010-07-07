@@ -46,7 +46,7 @@ public class UIPlayer implements Player {
 
 	private void returnBorrowedObjects() {
 		if (allMoves != null) {
-			for (int p = 0; p < 4; p++) {
+			for (int p = 0; p < allMoves.length; p++) {
 				if (allMoves[p] != null) {
 					objPool.returnObject(allMoves[p]);
 				}
@@ -59,8 +59,10 @@ public class UIPlayer implements Player {
 		allMoves = new CheckerMove[i];
 		for (int j = 0; j < i; j++) {
 			allMoves[j] = ((CheckerMove) objPool.borrowObject());
-			allMoves[j].setStartPoint(PlayerInterface.postions[j]);
-			allMoves[j].setDie(PlayerInterface.moves[j]);
+			System.out.println(PlayerInterface.postions[j+1]);
+			System.out.println(PlayerInterface.moves[j+1]);
+			allMoves[j].setStartPoint(PlayerInterface.postions[j+1]);
+			allMoves[j].setDie(PlayerInterface.moves[j+1]);
 		}
 
 		PlayerMove playerMove = new PlayerMove(allMoves);
