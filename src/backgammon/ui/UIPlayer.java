@@ -19,6 +19,8 @@ import backgammon.game.Point;
 public class UIPlayer implements Player {
 
 	private JFrame mainFrame;
+	private BackgammonBoard board;
+	private Dice dice;
 
 	public UIPlayer(JFrame panel) {
 		this.mainFrame = panel;
@@ -32,7 +34,19 @@ public class UIPlayer implements Player {
 
 	@Override
 	public PlayerMove getMove(BackgammonBoard board, Dice dice) throws Exception {
+		this.board = board;
+		this.dice = dice;
+		visualizeLogic();
+		return null;
+	}
 
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void visualizeLogic() {
 		mainFrame.remove(MainFrame.mainPanel);
 		System.out.println("test1");
 		JLayeredPane backPanel = new JLayeredPane();
@@ -48,146 +62,90 @@ public class UIPlayer implements Player {
 		ImageIcon newIcon = new ImageIcon(newimg);
 
 		board1.setIcon(newIcon);
-		board1.setSize(800, 500);
+		board1.setSize(900, 500);
 		backPanel.add(board1, new Integer(100));
 
-		JLabel whiteChecker = new JLabel();
+		// JLabel whiteChecker = new JLabel();
 		ImageIcon whiteCheckIcon = new ImageIcon(getClass().getResource(
 				"/backgammon/ui/white.png"));
 		img = whiteCheckIcon.getImage();
 		newimg = img.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
 		newIcon = new ImageIcon(newimg);
-		whiteChecker.setIcon(newIcon);
-		whiteChecker.setSize(40, 40);
 
-		JLabel blackChecker = new JLabel();
 		ImageIcon blackCheckerIcon = new ImageIcon(getClass().getResource(
-				"/backgammon/ui/white.png"));
+				"/backgammon/ui/black.png"));
 		img = blackCheckerIcon.getImage();
 		newimg = img.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
 		newIcon = new ImageIcon(newimg);
-		blackChecker.setIcon(newIcon);
-		blackChecker.setSize(40, 40);
 
-		Point point;
-		int count;
-		int x = 25 + 56;
-		int y = 15;
+		for (int i = 1; i <= 24; i++) {
+			Point p = board.getPoint(i);
+			int t = p.getCount();
+			if (t > 0 && p.getColor() == PlayerColor.WHITE) {
+				for (int j = 1; j <= t; j++) {
+					JLabel whiteChecker = new JLabel();
+					whiteChecker.setIcon(newIcon);
+					whiteChecker.setSize(40, 40);
+					PointImpl point2D = Utils.coord[i][j];
+					whiteChecker.setLocation((int) point2D.getX(), (int) point2D.getY());
+					backPanel.add(whiteChecker, new Integer(301));
+				}
+			}
+			if (t > 0 && p.getColor() == PlayerColor.BLACK) {
+				for (int j = 1; j <= t; j++) {
+					JLabel blackChecker = new JLabel();
+					blackChecker.setIcon(newIcon);
+					blackChecker.setSize(40, 40);
+					PointImpl point2D = Utils.coord[i][j];
+					blackChecker.setLocation((int) point2D.getX(), (int) point2D.getY());
+					backPanel.add(blackChecker, new Integer(301));
+				}
+			}
 
-//		if (board.getPoint(13).getColor() == PlayerColor.WHITE) {
-//			System.out.println("sdgdf");
-//			point = board.getPoint(13);
-//			count = point.getCount();
-//			System.out.println(x);
-//			x = x + 2*56;
-//			whiteChecker.setLocation(x, y);
-//			backPanel.add(whiteChecker, new Integer(300));
-//		}
-//		for (int i = 1; i <= 24; i++) {
-//			point = board.getPoint(i);
-//			count = point.getCount();
-//			if (point.getColor() == PlayerColor.WHITE) {
-//				x = i * 20;
-				System.out.println(x);
-				whiteChecker.setLocation(x, y);
-				backPanel.add(whiteChecker, new Integer(300));
-				
-				whiteChecker = new JLabel();
-				whiteCheckIcon = new ImageIcon(getClass().getResource(
-						"/backgammon/ui/white.png"));
-				img = whiteCheckIcon.getImage();
-				newimg = img.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
-				newIcon = new ImageIcon(newimg);
-				whiteChecker.setIcon(newIcon);
-				whiteChecker.setSize(40, 40);
-				y += 40;
-				whiteChecker.setLocation(x, y);
-				backPanel.add(whiteChecker, new Integer(301));
-				
-				whiteChecker = new JLabel();
-				whiteCheckIcon = new ImageIcon(getClass().getResource(
-						"/backgammon/ui/white.png"));
-				img = whiteCheckIcon.getImage();
-				newimg = img.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
-				newIcon = new ImageIcon(newimg);
-				whiteChecker.setIcon(newIcon);
-				whiteChecker.setSize(40, 40);
-				y += 40;
-				whiteChecker.setLocation(x, y);
-				backPanel.add(whiteChecker, new Integer(301));
-				
-				whiteChecker = new JLabel();
-				whiteCheckIcon = new ImageIcon(getClass().getResource(
-						"/backgammon/ui/white.png"));
-				img = whiteCheckIcon.getImage();
-				newimg = img.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
-				newIcon = new ImageIcon(newimg);
-				whiteChecker.setIcon(newIcon);
-				whiteChecker.setSize(40, 40);
-				y += 40;
-				whiteChecker.setLocation(x, y);
-				backPanel.add(whiteChecker, new Integer(301));
-				
-				whiteChecker = new JLabel();
-				whiteCheckIcon = new ImageIcon(getClass().getResource(
-						"/backgammon/ui/white.png"));
-				img = whiteCheckIcon.getImage();
-				newimg = img.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
-				newIcon = new ImageIcon(newimg);
-				whiteChecker.setIcon(newIcon);
-				whiteChecker.setSize(40, 40);
-				y += 40;
-				whiteChecker.setLocation(x, y);
-				backPanel.add(whiteChecker, new Integer(301));
-//			}
-//		}
-		mainFrame.add(backPanel);
-		mainFrame.setVisible(true);
-		mainFrame.repaint();
-		return null;
+			mainFrame.add(backPanel);
+		}
 	}
 
-	@Override
-	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void visualizeSMT() {
-		mainFrame.remove(MainFrame.mainPanel);
-		System.out.println("test1");
-		JLayeredPane backPanel = new JLayeredPane();
-		backPanel.setLayout(null);
-		backPanel.setSize(800, 500);
-		backPanel.setVisible(true);
-		backPanel.repaint();
-
-		JLabel board = new JLabel();
-		ImageIcon icon = new ImageIcon(getClass().getResource(
-				"/backgammon/ui/board.png"));
-		Image img = icon.getImage();
-		Image newimg = img.getScaledInstance(800, 500, java.awt.Image.SCALE_SMOOTH);
-		ImageIcon newIcon = new ImageIcon(newimg);
-
-		board.setIcon(newIcon);
-		board.setSize(800, 500);
-		backPanel.add(board, new Integer(100));
-
-		JLabel checker = new JLabel();
-		ImageIcon checkIcon = new ImageIcon(getClass().getResource(
-				"/backgammon/ui/white.png"));
-		img = checkIcon.getImage();
-		newimg = img.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
-		newIcon = new ImageIcon(newimg);
-		checker.setIcon(newIcon);
-		checker.setSize(50, 50);
-		checker.setLocation(20, 10);
-		backPanel.add(checker, new Integer(300));
-
-		mainFrame.add(backPanel);
-		mainFrame.setVisible(true);
-		mainFrame.repaint();
-	}
+	//
+	// public void visualizeSMT() {
+	// mainFrame.remove(MainFrame.mainPanel);
+	// System.out.println("test1");
+	// JLayeredPane backPanel = new JLayeredPane();
+	// backPanel.setLayout(null);
+	// backPanel.setSize(800, 500);
+	// backPanel.setVisible(true);
+	// backPanel.repaint();
+	//
+	// JLabel board = new JLabel();
+	// ImageIcon icon = new ImageIcon(getClass().getResource(
+	// "/backgammon/ui/board.png"));
+	// Image img = icon.getImage();
+	// Image newimg = img.getScaledInstance(800, 500,
+	// java.awt.Image.SCALE_SMOOTH);
+	// ImageIcon newIcon = new ImageIcon(newimg);
+	//
+	// board.setIcon(newIcon);
+	// board.setSize(800, 500);
+	// backPanel.add(board, new Integer(100));
+	//
+	// JLabel checker = new JLabel();
+	// ImageIcon checkIcon = new ImageIcon(getClass().getResource(
+	// "/backgammon/ui/white.png"));
+	// img = checkIcon.getImage();
+	// newimg = img.getScaledInstance(50, 50, java.awt.Image.SCALE_SMOOTH);
+	// newIcon = new ImageIcon(newimg);
+	// checker.setIcon(newIcon);
+	// checker.setSize(50, 50);
+	// checker.setLocation(20, 10);
+	// backPanel.add(checker, new Integer(300));
+	//
+	// for (int i = 0; i < array.length; i++) {
+	//
+	// }
+	// mainFrame.add(backPanel);
+	// mainFrame.setVisible(true);
+	// mainFrame.repaint();
+	// }
 
 	public void start() {
 		GameFacade gameFacade = new GameFacade();
