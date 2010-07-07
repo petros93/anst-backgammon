@@ -18,7 +18,7 @@ public class MainFrame extends JFrame {
 	private JButton startNewGameButton;
 	private JButton previousGameButton;
 	private JButton exitButton;
-	public static BackgoundPanel1 mainPanel;
+	public static BackgoundPanel mainPanel;
 
 	/**
 	 * Default constructor
@@ -32,7 +32,7 @@ public class MainFrame extends JFrame {
 			}
 		});
 
-		mainPanel = new BackgoundPanel1();
+		mainPanel = new BackgoundPanel();
 		GameActionListener actionlist = new GameActionListener(this);
 		mainPanel.setLayout(null);
 
