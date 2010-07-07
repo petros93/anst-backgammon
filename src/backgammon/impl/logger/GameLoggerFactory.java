@@ -1,6 +1,7 @@
 package backgammon.impl.logger;
 
 import backgammon.logger.GameLogger;
+import backgammon.logger.GameLoggerType;
 
 /**
  * Represents factory for getting the configured type of {@link GameLogger}
@@ -13,8 +14,12 @@ public final class GameLoggerFactory {
 	 * 
 	 * @return new instance of the configured Logger implementation
 	 */
-	public static GameLogger getLogger() {
-		return new HTMLGameLogger();
+	public static GameLogger getLogger(GameLoggerType type) {
+		switch (type) {
+		case HTML:
+			return new HTMLGameLogger();
+		default:
+			return null;
+		}
 	}
-
 }
