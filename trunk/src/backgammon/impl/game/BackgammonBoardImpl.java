@@ -1,11 +1,5 @@
 package backgammon.impl.game;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import backgammon.game.BackgammonBoard;
@@ -16,13 +10,13 @@ import backgammon.game.GameOverStatus;
 import backgammon.game.PlayerColor;
 import backgammon.game.PlayerMove;
 import backgammon.game.Point;
-import backgammon.util.BackgammonConfig;
 
 /**
  * Represents implementation of the {@link BackgammonBoard} interface.
  */
-public final class BackgammonBoardImpl implements BackgammonBoard {
+public class BackgammonBoardImpl implements BackgammonBoard {
 
+	private static final long serialVersionUID = 1L;
 	private static final int HIT_WHITE = 24;
 	private static final int HIT_BLACK = 25;
 	private static final int BORN_WHITE = 26;
@@ -34,10 +28,10 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 	 * player. 24 and 25 are the points of the hit white and black checkers and
 	 * 26 and 27 are the points of the born off white and black checkers.
 	 */
-	private PointImpl[] board;
-	private PlayerColor currentColor;
-	private ArrayList<CheckerMove> movesThatHit;
-	private MoveValidator validator;
+	protected PointImpl[] board;
+	protected PlayerColor currentColor;
+	protected ArrayList<CheckerMove> movesThatHit;
+	protected MoveValidator validator;
 
 	/**
 	 * Creates default board initiated with the default playing positions.
@@ -48,7 +42,20 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 		for (int i = 0; i < BOARD_SIZE; i++) {
 			board[i] = new PointImpl();
 		}
-		reset();
+
+		for (int i = 0; i < BOARD_SIZE; i++) {
+			board[i].updatePoint(0, PlayerColor.WHITE);
+		}
+		board[23].updatePoint(2, PlayerColor.WHITE);
+		board[18].updatePoint(5, PlayerColor.BLACK);
+		board[16].updatePoint(3, PlayerColor.BLACK);
+		board[12].updatePoint(5, PlayerColor.WHITE);
+		board[11].updatePoint(5, PlayerColor.BLACK);
+		board[7].updatePoint(3, PlayerColor.WHITE);
+		board[5].updatePoint(5, PlayerColor.WHITE);
+		board[0].updatePoint(2, PlayerColor.BLACK);
+		currentColor = PlayerColor.BLACK;
+
 		validator = new MoveValidator(this);
 	}
 
@@ -95,22 +102,6 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 				currentColor == PlayerColor.WHITE ? bornoff_opponent
 						: bornoff_mine, currentColor);
 		validator = new MoveValidator(this);
-	}
-
-	void reset() {
-		for (int i = 0; i < BOARD_SIZE; i++) {
-			board[i].updatePoint(0, PlayerColor.WHITE);
-		}
-		board[23].updatePoint(2, PlayerColor.WHITE);
-		board[18].updatePoint(5, PlayerColor.BLACK);
-		board[16].updatePoint(3, PlayerColor.BLACK);
-		board[12].updatePoint(5, PlayerColor.WHITE);
-		board[11].updatePoint(5, PlayerColor.BLACK);
-		board[7].updatePoint(3, PlayerColor.WHITE);
-		board[5].updatePoint(5, PlayerColor.WHITE);
-		board[0].updatePoint(2, PlayerColor.BLACK);
-		currentColor = PlayerColor.BLACK;
-
 	}
 
 	/**
@@ -283,6 +274,16 @@ public final class BackgammonBoardImpl implements BackgammonBoard {
 				decreaseHits(currentColor.opposite());
 			}
 		}
+	}
+
+	public Object clone() {
+		BackgammonBoardImpl copy = null;
+		try {
+			copy = (BackgammonBoardImpl) super.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return copy;
 	}
 
 }

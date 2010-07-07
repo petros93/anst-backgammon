@@ -44,7 +44,7 @@ final class GameImpl implements Game {
 
 	private PlayerMove currentMove = null;
 	private Throwable throwable = null;
-	private BackgammonBoardImpl board;
+	private BackgammonBoard board;
 	private Dice dice;
 
 	/**
@@ -74,9 +74,10 @@ final class GameImpl implements Game {
 		try {
 			winner = null;
 			if (initBoard != null) {
-				board = (BackgammonBoardImpl) initBoard;
+				board = initBoard;
 			} else {
-				board.reset();
+				board = InitBackgammonBoardPrototype.getInstance()
+						.getInitBoard();
 			}
 			if (logMoves)
 				logger.startGame(whitePlayer, blackPlayer);
@@ -138,7 +139,7 @@ final class GameImpl implements Game {
 	 * Return the end game status if the game is over, on null otherwise
 	 */
 	private GameOverStatus makeMove(Player currentPlayer, Player other) {
-		board.switchPlayer();
+		((BackgammonBoardImpl) board).switchPlayer();
 		dice = DiceFactory.getInstance().getRandomDice();
 
 		try {
@@ -149,10 +150,10 @@ final class GameImpl implements Game {
 								+ currentPlayer.getName(), Debug.GAME_LOGIC,
 						throwable);
 				mover.gameOver(currentPlayer, false, GameOverStatus.EXCEPTION);
-				board.switchPlayer();
+				((BackgammonBoardImpl) board).switchPlayer();
 				mover.gameOver(other, true, GameOverStatus.EXCEPTION);
 				mover.stop();
-				board.switchPlayer();
+				((BackgammonBoardImpl) board).switchPlayer();
 				winner = other;
 				return GameOverStatus.EXCEPTION;
 			}
@@ -164,26 +165,28 @@ final class GameImpl implements Game {
 
 				startNewMoverThread(true);
 				mover.gameOver(currentPlayer, false, GameOverStatus.TIMEDOUT);
-				board.switchPlayer();
+				((BackgammonBoardImpl) board).switchPlayer();
 				mover.gameOver(other, true, GameOverStatus.TIMEDOUT);
 				mover.stop();
-				board.switchPlayer();
+				((BackgammonBoardImpl) board).switchPlayer();
 				winner = other;
 				return GameOverStatus.TIMEDOUT;
 			}
 
 			boolean invalid = false;
 
-			if (currentMove == null || !board.makeMove(currentMove, dice)) {
+			if (currentMove == null
+					|| !((BackgammonBoardImpl) board).makeMove(currentMove,
+							dice)) {
 				Debug.getInstance().error(
 						"Invalid move for player " + currentPlayer.getName(),
 						Debug.GAME_LOGIC, null);
 				mover.gameOver(currentPlayer, false,
 						GameOverStatus.INVALID_MOVE);
-				board.switchPlayer();
+				((BackgammonBoardImpl) board).switchPlayer();
 				mover.gameOver(other, true, GameOverStatus.INVALID_MOVE);
 				mover.stop();
-				board.switchPlayer();
+				((BackgammonBoardImpl) board).switchPlayer();
 				winner = other;
 				invalid = true;
 			}
@@ -196,12 +199,13 @@ final class GameImpl implements Game {
 				return GameOverStatus.INVALID_MOVE;
 
 			if (board.getBornOff(board.getCurrentPlayerColor()) == 15) {
-				GameOverStatus status = board.getWinStatus();
+				GameOverStatus status = ((BackgammonBoardImpl) board)
+						.getWinStatus();
 				mover.gameOver(currentPlayer, true, status);
-				board.switchPlayer();
+				((BackgammonBoardImpl) board).switchPlayer();
 				mover.gameOver(other, false, status);
 				mover.stop();
-				board.switchPlayer();
+				((BackgammonBoardImpl) board).switchPlayer();
 				winner = currentPlayer;
 				return status;
 			}
@@ -210,10 +214,10 @@ final class GameImpl implements Game {
 					"Exception thrown while performing move for player "
 							+ currentPlayer.getName(), Debug.GAME_LOGIC, e);
 			mover.gameOver(currentPlayer, false, GameOverStatus.EXCEPTION);
-			board.switchPlayer();
+			((BackgammonBoardImpl) board).switchPlayer();
 			mover.gameOver(other, true, GameOverStatus.EXCEPTION);
 			mover.stop();
-			board.switchPlayer();
+			((BackgammonBoardImpl) board).switchPlayer();
 			winner = other;
 			return GameOverStatus.EXCEPTION;
 		}
