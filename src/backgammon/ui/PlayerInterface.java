@@ -1,17 +1,14 @@
 package backgammon.ui;
 
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 
 import backgammon.game.BackgammonBoard;
@@ -24,8 +21,6 @@ public class PlayerInterface implements ActionListener, PropertyChangeListener {
 	private JFrame mainFrame;
 	private BackgammonBoard board;
 	private Dice dice;
-	private JComboBox combo1;
-	private JFormattedTextField text1;
 	private Object sync;
 	private static JLayeredPane backPanel;
 
@@ -42,83 +37,78 @@ public class PlayerInterface implements ActionListener, PropertyChangeListener {
 		if (backPanel != null) {
 			mainFrame.remove(backPanel);
 		}
-		System.out.println("test1");
+		// make backgroung panel
 		backPanel = new JLayeredPane();
 		backPanel.setLayout(null);
 		backPanel.setSize(800, 500);
 		backPanel.setVisible(true);
-		backPanel.repaint();
-		JLabel board1 = new JLabel();
-		ImageIcon icon = new ImageIcon(getClass().getResource(
-				"/backgammon/ui/res/board.png"));
-		Image img = icon.getImage();
-		Image newimg = img.getScaledInstance(800, 500, java.awt.Image.SCALE_SMOOTH);
-		ImageIcon newIcon = new ImageIcon(newimg);
+		backPanel.add(new JLabelWithImage("/backgammon/ui/res/board.png",
+				new PointImpl(900, 500), new PointImpl(0, 0), new PointImpl(800, 500)),
+				new Integer(100));
 
-		board1.setIcon(newIcon);
-		board1.setSize(900, 500);
-		backPanel.add(board1, new Integer(100));
+		// add borders
+		visualBorders();
 
-		// JLabel whiteChecker = new JLabel();
-		ImageIcon whiteCheckIcon = new ImageIcon(getClass().getResource(
-				"/backgammon/ui/res/white.png"));
-		img = whiteCheckIcon.getImage();
-		newimg = img.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
-		ImageIcon whiteIcon = new ImageIcon(newimg);
+		// add dies
+		visualDies();
 
-		ImageIcon blackCheckerIcon = new ImageIcon(getClass().getResource(
-				"/backgammon/ui/res/black.png"));
-		img = blackCheckerIcon.getImage();
-		newimg = img.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
-		ImageIcon blackIcon = new ImageIcon(newimg);
+		// add combo boxes & fields
+		visualizeFields();
 
+		// vizualize button
+		JButton button = new JButton("give values");
+		button.addActionListener(this);
+		button.setLocation(350, 320);
+		button.setSize(100, 40);
+		backPanel.add(button, new Integer(301));
+
+		mainFrame.add(backPanel);
+		mainFrame.setVisible(true);
+		System.out.println("tararar1");
+	}
+
+	private void visualDies() {
+		backPanel.add(new JLabelWithImage("/backgammon/ui/res/" + dice.getDie1()
+				+ ".png", new PointImpl(100, 100), new PointImpl(355, 120), null),
+				new Integer(301));
+
+		backPanel.add(new JLabelWithImage("/backgammon/ui/res/" + dice.getDie2()
+				+ ".png", new PointImpl(100, 100), new PointImpl(410, 120), null),
+				new Integer(301));
+	}
+
+	private void visualBorders() {
 		for (int i = 1; i <= 24; i++) {
 			Point p = board.getPoint(i);
 			int t = p.getCount();
 			if (t > 0 && p.getColor() == PlayerColor.WHITE) {
 				for (int j = 1; j <= t; j++) {
-					JLabel whiteChecker = new JLabel();
-					whiteChecker.setIcon(whiteIcon);
-					whiteChecker.setSize(40, 40);
-					PointImpl point2D = Utils.coord[i][j];
-					whiteChecker.setLocation((int) point2D.getX(), (int) point2D.getY());
-					backPanel.add(whiteChecker, new Integer(301));
+					backPanel.add(new JLabelWithImage("/backgammon/ui/res/white.png",
+							new PointImpl(40, 40), Utils.coord[i][j], new PointImpl(40, 40)),
+							new Integer(301));
 				}
 			}
 
 			if (t > 0 && p.getColor() == PlayerColor.BLACK) {
 				for (int j = 1; j <= t; j++) {
-					JLabel blackChecker = new JLabel();
-					blackChecker.setIcon(blackIcon);
-					blackChecker.setSize(40, 40);
-					PointImpl point2D = Utils.coord[i][j];
-					blackChecker.setLocation((int) point2D.getX(), (int) point2D.getY());
-					backPanel.add(blackChecker, new Integer(301));
+					backPanel.add(new JLabelWithImage("/backgammon/ui/res/black.png",
+							new PointImpl(40, 40), Utils.coord[i][j], new PointImpl(40, 40)),
+							new Integer(301));
 				}
 			}
 		}
-		ImageIcon dice1Icon = new ImageIcon(getClass().getResource(
-				"/backgammon/ui/res/" + dice.getDie1() + ".png"));
-		JLabel dice1Label = new JLabel();
-		dice1Label.setIcon(dice1Icon);
-		dice1Label.setSize(100, 100);
-		dice1Label.setLocation(355, 120);
-		backPanel.add(dice1Label, new Integer(301));
+	}
 
-		ImageIcon dice2Icon = new ImageIcon(getClass().getResource(
-				"/backgammon/ui/res/" + dice.getDie2() + ".png"));
-		JLabel dice2Label = new JLabel();
-		dice2Label.setIcon(dice2Icon);
-		dice2Label.setSize(100, 100);
-		dice2Label.setLocation(410, 120);
-		backPanel.add(dice2Label, new Integer(301));
-
-		combo1 = new JComboBox(Utils.petStrings);
+	private void visualizeFields() {
+		System.out.println("2132");
+		JComboBox combo1 = new JComboBox(Utils.petStrings);
 		combo1.setLocation(355, 200);
 		combo1.setSize(40, 20);
 		combo1.setName("1");
 		combo1.addActionListener(this);
-		text1 = new JFormattedTextField(Utils.createFormatter("#"));
+
+		JFormattedTextField text1 = new JFormattedTextField(Utils
+				.createFormatter("#"));
 		text1.setLocation(410, 200);
 		text1.setSize(30, 20);
 		text1.setName("1");
@@ -168,20 +158,10 @@ public class PlayerInterface implements ActionListener, PropertyChangeListener {
 			backPanel.add(combo4, new Integer(301));
 			backPanel.add(text4, new Integer(301));
 		}
-
-		JButton button = new JButton("give values");
-		button.addActionListener(this);
-		button.setLocation(350, 320);
-		button.setSize(100, 40);
-
-		backPanel.add(button, new Integer(301));
 		backPanel.add(combo1, new Integer(301));
 		backPanel.add(text1, new Integer(301));
 		backPanel.add(combo2, new Integer(301));
 		backPanel.add(text2, new Integer(301));
-		mainFrame.add(backPanel);
-		mainFrame.setVisible(true);
-		System.out.println("tararar1");
 	}
 
 	public static int[] postions = new int[5];
