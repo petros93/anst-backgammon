@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Represents the structure of the backgammon board.
  */
-public interface BackgammonBoard extends Serializable {
+public interface BackgammonBoard extends Serializable, Cloneable {
 
 	/**
 	 * Returns the specified point on the board according to the given point
@@ -30,4 +30,9 @@ public interface BackgammonBoard extends Serializable {
 	 * notified for the end of the game will be returned.
 	 */
 	public PlayerColor getCurrentPlayerColor();
+
+	/**
+	 * Clones BackgammonBoard instance
+	 */
+	public Object clone();
 }
