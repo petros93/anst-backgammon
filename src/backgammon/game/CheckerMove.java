@@ -5,6 +5,10 @@ package backgammon.game;
  */
 public final class CheckerMove {
 
+	public CheckerMove() {
+		
+	}
+	
 	private CheckerMoveType type;
 	private int startPoint;
 	private int die;
@@ -77,7 +81,7 @@ public final class CheckerMove {
 		return type == CheckerMoveType.REENTER_HIT_CHECKER;
 	}
 
-	private void setStartPoint(int startPoint) {
+	public void setStartPoint(int startPoint) {
 		if (startPoint < 1 || startPoint > Constants.POINTS_COUNT) {
 			throw new IllegalArgumentException("Invalid start point : "
 					+ startPoint);
@@ -85,7 +89,7 @@ public final class CheckerMove {
 		this.startPoint = startPoint;
 	}
 
-	private void setDie(int die) {
+	public void setDie(int die) {
 		if (die < 1 || die > Constants.MAX_DIE) {
 			throw new IllegalArgumentException("Invalid die : " + die);
 		}
