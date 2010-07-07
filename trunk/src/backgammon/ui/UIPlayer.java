@@ -24,6 +24,7 @@ public class UIPlayer implements Player {
 
 	public UIPlayer(JFrame panel) {
 		this.mainFrame = panel;
+		Utils.creatCoordinates();
 	}
 
 	@Override
@@ -70,13 +71,13 @@ public class UIPlayer implements Player {
 				"/backgammon/ui/white.png"));
 		img = whiteCheckIcon.getImage();
 		newimg = img.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
-		newIcon = new ImageIcon(newimg);
+		ImageIcon whiteIcon = new ImageIcon(newimg);
 
 		ImageIcon blackCheckerIcon = new ImageIcon(getClass().getResource(
 				"/backgammon/ui/black.png"));
 		img = blackCheckerIcon.getImage();
 		newimg = img.getScaledInstance(40, 40, java.awt.Image.SCALE_SMOOTH);
-		newIcon = new ImageIcon(newimg);
+		ImageIcon blackIcon = new ImageIcon(newimg);
 
 		for (int i = 1; i <= 24; i++) {
 			Point p = board.getPoint(i);
@@ -84,7 +85,7 @@ public class UIPlayer implements Player {
 			if (t > 0 && p.getColor() == PlayerColor.WHITE) {
 				for (int j = 1; j <= t; j++) {
 					JLabel whiteChecker = new JLabel();
-					whiteChecker.setIcon(newIcon);
+					whiteChecker.setIcon(whiteIcon);
 					whiteChecker.setSize(40, 40);
 					PointImpl point2D = Utils.coord[i][j];
 					whiteChecker.setLocation((int) point2D.getX(), (int) point2D.getY());
@@ -94,7 +95,7 @@ public class UIPlayer implements Player {
 			if (t > 0 && p.getColor() == PlayerColor.BLACK) {
 				for (int j = 1; j <= t; j++) {
 					JLabel blackChecker = new JLabel();
-					blackChecker.setIcon(newIcon);
+					blackChecker.setIcon(blackIcon);
 					blackChecker.setSize(40, 40);
 					PointImpl point2D = Utils.coord[i][j];
 					blackChecker.setLocation((int) point2D.getX(), (int) point2D.getY());
