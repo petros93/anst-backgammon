@@ -2,9 +2,6 @@ package backgammon.ui;
 
 import javax.swing.JFrame;
 
-import org.eclipse.swt.widgets.Display;
-
-
 import backgammon.game.BackgammonBoard;
 import backgammon.game.CheckerMove;
 import backgammon.game.Dice;
