@@ -9,6 +9,7 @@ import backgammon.game.GameType;
 import backgammon.game.Player;
 import backgammon.game.PlayerMove;
 import backgammon.logger.GameLogger;
+import backgammon.logger.GameLoggerType;
 import backgammon.util.BackgammonConfig;
 import backgammon.util.Debug;
 
@@ -59,7 +60,7 @@ final class GameImpl implements Game {
 		this.logMoves = logMoves;
 		board = new BackgammonBoardImpl(gameType);
 		if (logMoves) {
-			logger = GameLoggerFactory.getLogger();
+			logger = GameLoggerFactory.getLogger(GameLoggerType.HTML);
 		}
 	}
 
