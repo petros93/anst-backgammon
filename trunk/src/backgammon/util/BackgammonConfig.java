@@ -34,9 +34,8 @@ public final class BackgammonConfig {
 			}
 
 		} else {
-			System.out.println("[WARNING] [Utils] "
-					+ "Cannot find backgammonator.properties "
-					+ "in the current directory");
+			System.out.println("[WARNING] [Utils] " + "Cannot find "
+					+ propertiesFile.getAbsolutePath());
 			// try to load the properties if the file is not found in the
 			// current
 			// directory but maybe it can be placed in some library jar on the
@@ -62,9 +61,11 @@ public final class BackgammonConfig {
 	/**
 	 * Gets the system property associated with the given key.
 	 * 
-	 * @param key the key
-	 * @param alternative the alternative value to be returned if not found. Can
-	 *            be <code>null</code>.
+	 * @param key
+	 *            the key
+	 * @param alternative
+	 *            the alternative value to be returned if not found. Can be
+	 *            <code>null</code>.
 	 * @return the value of the property or <code>alternative</code> if there is
 	 *         no value associated with the given key.
 	 */
@@ -76,7 +77,8 @@ public final class BackgammonConfig {
 	/**
 	 * Gets the system property associated with the given key.
 	 * 
-	 * @param key the key
+	 * @param key
+	 *            the key
 	 * @return the value of the property or <code>null</code> if there is no
 	 *         value associated with the given key.
 	 */
