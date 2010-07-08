@@ -80,8 +80,9 @@ final class GameImpl implements Game {
 			if (initBoard != null) {
 				board = initBoard;
 			} else {
-				board = InitStandardBackgammonBoardPrototype.getInstance()
-						.getInitBoard();
+				// board = InitStandardBackgammonBoardPrototype.getInstance()
+				// .getInitBoard();
+				board = new BackgammonBoardImpl(GameType.STANDARD);
 			}
 			if (logMoves)
 				logger.startGame(whitePlayer, blackPlayer);

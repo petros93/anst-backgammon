@@ -19,7 +19,6 @@ public final class StandartBackgammonMoveValidator extends MoveValidator {
 	}
 
 	public boolean validateMove(PlayerMove move, Dice dice) {
-		// TODO
 		if (move.isDouble() != dice.isDouble()) {
 			return false;
 		}
