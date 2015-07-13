@@ -1,0 +1,1 @@
+A desktop application implementing the game Backgammon in single player mode.
